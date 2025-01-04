@@ -1,0 +1,8 @@
+package com.GSCOMP230.Student_Managment.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class CourseService {
+
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit User</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+  <h1>Edit User</h1>
+
+  <!-- Display error or success messages -->
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+
+  <!-- Edit User Form -->
+  <form action="/changedetails" method="post">
+    <input type="hidden" name="email" th:value="${user.email}" />
+
+    <div class="form-group">
+      <label for="first-name">First Name:</label>
+      <input type="text" id="first-name" name="firstName" th:value="${user.firstName}" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="last-name">Last Name:</label>
+      <input type="text" id="last-name" name="lastName" th:value="${user.lastName}" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" th:value="${user.phone}" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="dob">Date of Birth:</label>
+      <input type="date" id="dob" name="dob" th:value="${user.dob}" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="reg-year">Registration Year:</label>
+      <input type="number" id="reg-year" name="regYear" th:value="${user.regYear}" class="form-control" />
+    </div>
+
+    <input type="hidden" name="id" th:value="${user.id}" />
+
+    <button type="submit" class="btn btn-primary" onclick="return confirmUpdate()">Update Details</button>
+
+  </form>
+</div>
+</body>
+
+<script>
+function confirmUpdate() {
+  return confirm("Are you sure you want to update your details?");
+}
+</script>
+</html>

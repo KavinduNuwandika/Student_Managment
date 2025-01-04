@@ -1,0 +1,167 @@
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fc;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  color: #333;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.user-details, .user-list {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.user-details {
+  max-width: 400px;
+}
+
+.user-list {
+  flex: 2;
+  margin-left: 20px;
+}
+
+.user-details h2, .user-list h2 {
+  font-size: 24px;
+  color: #444;
+}
+
+.user-details p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Table styles */
+table {
+  width: 90%;
+  border-collapse: collapse;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 20px auto;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Error message */
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.filter-form {
+  display: flex;
+  margin-top: 15px;
+  text-align: left;
+  margin-left: 20px;
+  padding : 10px;
+}
+
+.user-list {
+  margin-top : 20px;
+}
+
+/* Button styles */
+
+/* Parent container for the buttons */
+.button-container {
+  display: flex;             /* Enable flexbox */
+  justify-content: center;   /* Center buttons horizontally */
+  align-items: center;       /* Center buttons vertically (if needed) */
+  margin-top: 20px;           /* Optional: space above the buttons */            /* Make the container take the full viewport height for vertical centering */
+}
+.button-container2 {
+  justify-content: left;
+  margin-top: 20px;           /* Optional: space above the buttons */            /* Make the container take the full viewport height for vertical centering */
+  padding-left: 20px;
+  margin-left: 20px;
+  margin-bottom: 20px;
+
+}
+
+
+.btn-home, .btn-custom {
+  width: 150px;
+  padding: 12px 20px;
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.btn-home:hover, .btn-custom:hover {
+  background-color: #0056b3;
+}
+
+.btn-custom:focus {
+  outline: none;
+}
+
+.btn-custom:active {
+  background-color: #0056b3;
+}
+
+.btn-custom:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .user-details, .user-list {
+    margin: 0;
+    margin-bottom: 20px;
+    max-width: none;
+  }
+
+  .user-list {
+    margin-left: 0;
+  }
+}

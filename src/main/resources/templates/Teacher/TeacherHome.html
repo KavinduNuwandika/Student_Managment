@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+          background-color: #f4f7fa;
+          font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar {
+          background-color: #007bff;
+        }
+
+        .navbar-brand {
+          color: white !important;
+          font-size: 1.5rem;
+        }
+
+        .container {
+          max-width: 900px;
+          margin-top: 70px;
+          padding: 30px;
+          background-color: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+          text-align: center;
+          color: #333;
+          font-size: 2.5rem;
+          margin-bottom: 30px;
+        }
+
+        .card {
+          margin-bottom: 20px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+          background-color: #007bff;
+          color: white;
+          font-size: 1.2rem;
+        }
+
+        .card-body {
+          font-size: 1.1rem;
+          color: #555;
+        }
+
+        .button-container {
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+        }
+
+        .btn-custom {
+          background-color: #007bff;
+          color: white;
+          padding: 12px 30px;
+          border-radius: 5px;
+          font-size: 1.1rem;
+          border: none;
+          box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+          transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-custom:hover {
+          background-color: #0056b3;
+          transform: translateY(-3px);
+        }
+
+        .btn-custom:focus {
+          outline: none;
+        }
+
+        .btn-outline-custom {
+          border-color: #007bff;
+          color: #007bff;
+          padding: 10px 25px;
+        }
+
+        .btn-outline-custom:hover {
+          background-color: #007bff;
+          color: white;
+        }
+
+        .navbar-toggler-icon {
+          background-color: white;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+          .container {
+            padding: 20px;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">Teacher Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#userDetails">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#createClass">Create Class</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#viewClasses">View Classes</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Error Message if Login Failed -->
+<div th:if="${error}" class="error" style="color: red; text-align: center;">
+    <p>[[${error}]]</p>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Welcome Message -->
+    <h1>Welcome, <span th:text="${user.firstName}">User</span> <span th:text="${user.lastName}">User</span></h1>
+    <p class="lead text-center">As a teacher, you can create new classes, manage your courses, and interact with students.</p>
+
+    <!-- Display User Details if Login is Successful -->
+    <div id="userDetails" th:if="${user}" class="card">
+        <div class="card-header">
+            User Details
+        </div>
+        <div class="card-body">
+            <p><strong>Name:</strong> <span th:text="${user.firstName}">User</span> <span th:text="${user.lastName}">User</span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}">Email</span></p>
+            <p><strong>Phone:</strong> <span th:text="${user.phone}">Phone</span></p>
+            <p><strong>Date of Birth:</strong> <span th:text="${user.dob}">Date of Birth</span></p>
+
+            <!-- Buttons to Change Details and Password -->
+            <div class="button-container">
+                <a th:href="@{'/change-details?email=' + ${user.email}}" class="btn-custom"><i class="fas fa-edit"></i> Change Details</a>
+            </div>
+            <div class="button-container">
+                <a th:href="@{'/change-password?email=' + ${user.email}}" class="btn-custom"><i class="fas fa-key"></i> Change Password</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button to Create Class -->
+    <div id="createClass" class="mt-4">
+        <a href="/teacher/create-class" class="btn btn-primary btn-lg btn-block"><i class="fas fa-chalkboard-teacher"></i> Create New Class</a>
+    </div>
+
+    <!-- Button to View Classes -->
+    <div id="viewClasses" class="mt-4">
+        <a href="/teacher/view-classes" class="btn btn-primary btn-lg btn-block"><i class="fas fa-list-alt"></i> View Classes</a>
+    </div>
+
+    <!-- Go to Homepage Button -->
+    <div class="mt-4">
+        <a href="/" class="btn btn-primary btn-lg btn-block"><i class="fas fa-sign-out-alt"></i>Log Out</a>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

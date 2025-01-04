@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Marks</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Delete Marks for Course: <span th:text="${course.courseName}"></span></h2>
+
+<!-- Form to delete marks -->
+<form action="/teacher/delete-marks" method="post" onsubmit="return confirmDelete()">
+    <!-- Hidden field for courseId -->
+    <input type="hidden" name="courseId" th:value="${courseId}" />
+
+    <!-- Table displaying student names and delete checkboxes -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Current Mark</th>
+            <th>Delete Marks</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="enrollment : ${enrollments}">
+            <tr>
+                <td th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></td>
+                <td th:text="${enrollment.marks}"></td>
+                <td>
+                    <!-- Delete checkbox uniquely associated with each enrollment -->
+                    <input type="checkbox" name="deleteMarks" th:value="${enrollment.id}" />
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <!-- Submit button to delete selected marks -->
+    <button type="submit" class="btn btn-danger btn-lg">Delete Selected Marks</button>
+</form>
+
+<!-- Back to class students button -->
+<div class="button-container">
+    <form action="/teacher/class-students" method="get">
+        <input type="hidden" name="courseId" th:value="${courseId}" />
+        <button type="submit" class="btn btn-secondary btn-lg">Back to Class Students</button>
+    </form>
+</div>
+
+<!-- JavaScript confirmation for form submission -->
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete the selected marks?");
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fc;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  color: #333;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top of the container */
+  margin: 20px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.user-details, .user-list {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  justify-content: center; /* Center content inside the box */
+  align-items: center; /* Center items horizontally */
+}
+
+.user-details {
+  max-width: 400px;
+}
+
+.user-list {
+  max-width: 600px;
+}
+
+
+
+.user-details h2, .user-list h2 {
+  font-size: 24px;
+  color: #444;
+}
+
+.user-details p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+
+/* Navigation Bar Styling */
+.navbar {
+  background-color: #007bff;
+}
+
+.navbar-brand {
+  color: white;
+  font-weight: 700;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+  color: white;
+  font-size: 16px;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:hover {
+  color: #ffd700;
+}
+
+.navbar .navbar-toggler-icon {
+  background-color: white;
+}
+
+/* Welcome Message */
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Button Styling */
+.btn {
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
+
+/* Container */
+.container {
+
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Spacing for Sections */
+.mt-4 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.mt-5 {
+  margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar .navbar-nav {
+    text-align: center;
+  }
+
+  .user-details {
+    padding: 15px;
+    max-width: 100%; /* Allow user details to take up full width on smaller screens */
+  }
+
+  .user-list {
+    margin-left: 0; /* Remove margin on smaller screens */
+    flex: 1; /* Allow the user list to take up full space */
+    max-width: 100%; /* Allow user list to take up full width on smaller screens */
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

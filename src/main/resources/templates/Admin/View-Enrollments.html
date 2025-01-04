@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrolled Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Enrolled Students for <span th:text="${course.courseName}"></span></h1>
+
+    <!-- Success or Error Messages -->
+    <div th:if="${not #lists.isEmpty(enrollments)}">
+        <div class="alert alert-info">
+            <strong>Note:</strong> The following students are enrolled in this course.
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(enrollments)}">
+        <div class="alert alert-warning">
+            <strong>No students are enrolled in this course yet.</strong>
+        </div>
+    </div>
+
+    <!-- Table to Display Enrolled Students -->
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Student Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enrollment : ${enrollments}">
+            <td th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></td>
+            <td th:text="${enrollment.student.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a href="/admin/courses" class="btn btn-primary">Back to Courses</a>
+    </div>
+</div>
+
+</body>
+</html>

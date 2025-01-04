@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin View Courses</title>
+
+    <!-- Include CSS -->
+<!--    <link rel="stylesheet" href="/CSS/Teacher/TeacherClassStyles.css">-->
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            padding: 20px;
+        }
+
+        header {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .btn2, .btn-danger, .btn-primary {
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            border: none;
+        }
+
+        .btn2 {
+            background-color: #28a745;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn2:hover, .btn-danger:hover, .btn-primary:hover {
+            opacity: 0.8;
+        }
+
+        .mt-5 {
+            margin-top: 40px;
+        }
+
+        .btn-home {
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-home:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<header>All Courses</header>
+
+<div class="container">
+
+    <!-- Success or Error Messages -->
+    <div th:if="${success}" class="alert alert-success mt-3" role="alert">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger mt-3" role="alert">
+        <p th:text="${error}"></p>
+    </div>
+
+    <!-- Table to Display Courses -->
+    <table class="table mt-3">
+        <thead>
+        <tr>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Academic Year</th>
+            <th>Teacher</th>
+            <th>Change Teacher</th>
+            <th>Actions</th>
+            <th>Enroll Students</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseCode}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.academicYear}"></td>
+            <td th:text="${course.teacher != null ? course.teacher.firstName + ' ' + course.teacher.lastName : 'No teacher assigned'}"></td>
+            <td>
+                <!-- Form to update the teacher -->
+                <form th:action="@{/admin/update-course-teacher}" method="post">
+                    <input type="hidden" name="courseId" th:value="${course.courseId}" />
+                    <select name="teacherId" class="form-control">
+                        <option th:each="teacher : ${teachers}" th:value="${teacher.id}" th:text="${teacher.firstName + ' ' + teacher.lastName}"></option>
+                    </select>
+                    <button type="submit" class="btn2">Update Teacher</button>
+                </form>
+            </td>
+            <td>
+                <!-- Delete Course Button with Confirmation -->
+                <a href="#" class="btn-danger" onclick="confirmDelete(${course.courseId})">Delete</a>
+            </td>
+            <td>
+                <a th:href="@{/admin/enroll-students(courseId=${course.courseId})}" class="btn-primary">Enroll Students</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="mt-5">
+    <br>
+    <a href="/admin/home" class="btn-home">Go to Admin Home</a>
+</div>
+
+<!-- Confirmation Dialog for Course Deletion -->
+<script>
+    function confirmDelete(courseId) {
+        const confirmation = confirm('Are you sure you want to delete this course?');
+        if (confirmation) {
+            window.location.href = '/admin/delete-course/' + courseId;
+        }
+    }
+</script>
+
+</body>
+</html>

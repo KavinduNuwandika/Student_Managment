@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Error</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f7f7f7;
+        }
+        .error-container {
+            text-align: center;
+            padding: 30px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+        .error-container h2 {
+            color: #dc3545;
+        }
+        .error-container p {
+            color: #6c757d;
+        }
+        .btn-home {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <h2>Login Failed</h2>
+    <!-- Display the error message here -->
+    <p th:text="${error}">Invalid email or password. Please try again.</p>
+
+    <!-- Redirect button to homepage -->
+    <a href="/" class="btn btn-primary btn-home">Go to Homepage</a>
+</div>
+
+</body>
+</html>

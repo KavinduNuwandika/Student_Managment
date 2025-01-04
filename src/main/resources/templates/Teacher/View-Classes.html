@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>View Classes</title>
+  <link rel="stylesheet" href="/CSS/Teacher/TeacherClassStyles.css">
+</head>
+<body>
+<header>My Classes</header>
+<div class="container mt-5">
+  <!-- Check if there are any courses -->
+  <div th:if="${#lists.isEmpty(courses)}">
+    <div class="alert alert-info mt-3" role="alert">
+      No classes assigned to you.
+    </div>
+  </div>
+
+  <!-- Display the classes in a table -->
+  <div th:if="${!#lists.isEmpty(courses)}">
+    <table class="table table-bordered mt-3">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Course Code</th>
+        <th>Course Name</th>
+        <th>Academic Year</th>
+        <th>Credits</th>
+        <th>Main Subject</th>
+        <th>Grade Class</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="course, iterStat : ${courses}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${course.courseCode}"></td>
+        <td th:text="${course.courseName}"></td>
+        <td th:text="${course.academicYear}"></td>
+        <td th:text="${course.credits}"></td>
+        <td th:text="${course.mainSubject}"></td>
+        <td class="text-center">
+          <a th:href="@{/teacher/class-students(courseId=${course.courseId})}" class="btn btn-primary">Grade</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-4">
+  <a href="/teacher/home" class="btn btn-primary">Go to Teacher Home</a>
+</div>
+<div class="mt-4">
+  <a href="/teacher/create-class" class="btn btn-primary">Create New Class</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome for Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom Styles -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7fa;
+      margin-top: 80px;
+    }
+
+    .navbar {
+      background-color: #007bff;
+    }
+
+    .navbar-brand {
+      color: white !important;
+      font-size: 1.5rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      margin-bottom: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: #007bff;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    .card-body {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .btn-custom, .btn-home {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      border: none;
+      box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-custom:hover, .btn-home:hover {
+      background-color: #0056b3;
+      transform: translateY(-3px);
+    }
+
+    .btn-custom:focus, .btn-home:focus {
+      outline: none;
+    }
+
+    .navbar-toggler-icon {
+      background-color: white;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <a class="navbar-brand" href="#">Admin Panel</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#userDetails">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#userList">User List</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#viewCourses">View Courses</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Error Message if Login Failed -->
+<div th:if="${error}" class="error" style="color: red; text-align: center;">
+  <p>[[${error}]]</p>
+</div>
+
+<div class="container">
+  <!-- Welcome Message -->
+  <h1>Welcome to the Admin Panel</h1>
+
+  <!-- Display User Details if Login is Successful -->
+  <div id="userDetails" th:if="${user}" class="card">
+    <div class="card-header">
+      User Details
+    </div>
+    <div class="card-body">
+      <h2>Welcome, <span th:text="${user.firstName}">User</span> <span th:text="${user.lastName}">User</span></h2>
+      <p><strong>Email:</strong> <span th:text="${user.email}">Email</span></p>
+      <p><strong>Phone:</strong> <span th:text="${user.phone}">Phone</span></p>
+      <p><strong>Date of Birth:</strong> <span th:text="${user.dob}">Date of Birth</span></p>
+
+      <!-- Buttons for Changing Details and Password -->
+      <div class="button-container">
+        <a th:href="@{'/change-details?email=' + ${user.email}}" class="btn-custom"><i class="fas fa-edit"></i> Change Details</a>
+      </div>
+      <div class="button-container">
+        <a th:href="@{'/change-password?email=' + ${user.email}}" class="btn-custom"><i class="fas fa-key"></i> Change Password</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons for Admin Actions -->
+  <div id="userList" class="button-container">
+    <a href="/admin/userlist" class="btn-home"><i class="fas fa-users"></i> Go to User List</a>
+  </div>
+
+  <div id="viewCourses" class="button-container">
+    <a href="/admin/view-courses" class="btn-home"><i class="fas fa-book"></i> View All Courses</a>
+  </div>
+
+  <!-- Go to Homepage Button -->
+  <div class="button-container">
+    <a href="/" class="btn-home"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+  </div>
+</div>
+
+<!-- Bootstrap & jQuery Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Enrolled Students</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h2 {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }
+
+    table {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .table th, .table td {
+        text-align: center;
+    }
+
+    .button-container form {
+        margin-top: 15px;
+    }
+
+    .alert {
+        margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Display selected course details -->
+<h2>Selected Course</h2>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th>Course Name</th>
+    <th>Academic Year</th>
+    <th>Credits</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td th:text="${selectedCourse.courseName}"></td>
+    <td th:text="${selectedCourse.academicYear}"></td>
+    <td th:text="${selectedCourse.credits}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Display marked students -->
+<h2>Marked Students</h2>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th>Student Name</th>
+    <th>Year of Registration</th>
+    <th>Email</th>
+    <th>Marks</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <th:block th:each="studentGradeInfo : ${markedStudents}">
+    <tr>
+      <td th:text="${studentGradeInfo.student.firstName + ' ' + studentGradeInfo.student.lastName}"></td>
+      <td th:text="${studentGradeInfo.student.regYear}"></td>
+      <td th:text="${studentGradeInfo.student.email}"></td>
+      <td th:text="${studentGradeInfo.marks}"></td>
+      <td th:text="${studentGradeInfo.grade}"></td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+
+<!-- Edit marks redirect -->
+<div class="button-container">
+  <form action="/teacher/edit-marks" method="get">
+    <input type="hidden" name="courseId" th:value="${selectedCourse.courseId}" />
+    <button type="submit" class="btn btn-primary">Edit Marks</button>
+  </form>
+</div>
+
+<!-- Delete marks redirect -->
+<div class="button-container">
+  <form action="/teacher/delete-marks" method="get">
+    <input type="hidden" name="courseId" th:value="${selectedCourse.courseId}" />
+    <button type="submit" class="btn btn-danger">Delete Marks</button>
+  </form>
+</div>
+
+<!-- Display unmarked students -->
+<h2>Unmarked Students</h2>
+<table class="table table-bordered table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th>Student Name</th>
+    <th>Year of Registration</th>
+    <th>Email</th>
+    <th>Marks</th>
+    <th>Grade</th>
+  </tr>
+  </thead>
+  <tbody>
+  <th:block th:each="studentGradeInfo : ${unmarkedStudents}">
+    <tr>
+      <td th:text="${studentGradeInfo.student.firstName + ' ' + studentGradeInfo.student.lastName}"></td>
+      <td th:text="${studentGradeInfo.student.regYear}"></td>
+      <td th:text="${studentGradeInfo.student.email}"></td>
+      <td>No Marks</td>
+      <td>No Grade</td>
+    </tr>
+  </th:block>
+  </tbody>
+</table>
+
+<!-- Mark students redirect -->
+<div class="button-container">
+  <form action="/teacher/mark-students" method="get">
+    <input type="hidden" name="courseId" th:value="${selectedCourse.courseId}" />
+    <button type="submit" class="btn btn-success">Mark Students</button>
+  </form>
+</div>
+
+<!-- Back to Course View Button -->
+<div class="button-container">
+  <form action="/teacher/view-classes" method="get">
+    <button type="submit" class="btn btn-secondary">View Course</button>
+  </form>
+</div>
+
+<!-- Back to Teacher Home Button -->
+<div class="button-container">
+  <form action="/teacher/home" method="get">
+    <button type="submit" class="btn btn-info">Teacher Home</button>
+  </form>
+</div>
+
+</body>
+</html>

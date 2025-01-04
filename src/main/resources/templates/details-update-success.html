@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details Updated Successfully</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="alert alert-success text-center">
+        <h2 th:text="${success}">Details updated successfully!</h2>
+    </div>
+
+    <div class="text-center mt-4">
+        <a id="homeLink" class="btn btn-primary" onclick="goToDashboard()">Go to Dashboard</a>
+    </div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var role = [[${user.role}]];
+    function goToDashboard() {
+        if (role === 'Admin') {
+            window.location.href = '/admin/home';
+        } else if (role === 'Teacher') {
+            window.location.href = '/teacher/home';
+        } else if (role === 'Student') {
+            window.location.href = '/student/home';
+        } else {
+            window.location.href = '/';
+        }
+    }
+    /*]]>*/
+</script>
+    <div class="button-container">
+        <a href="/" class="btn-custom">Log Out</a>
+    </div>
+</div>
+</body>
+
+</html>

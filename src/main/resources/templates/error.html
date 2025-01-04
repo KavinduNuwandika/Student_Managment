@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 20px;
+        }
+        .container {
+            border: 1px solid #f5c6cb;
+            background-color: #f8d7da;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        h1 {
+            color: #721c24;
+        }
+        pre {
+            background-color: #f1f1f1;
+            padding: 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Error Occurred</h1>
+    <p><strong>Status Code:</strong> <span th:text="${status}">Status Code</span></p>
+    <p><strong>Error Message:</strong> <span th:text="${message}">Error Message</span></p>
+    <p><strong>Exception:</strong> <span th:text="${exception}">Exception</span></p>
+    <p>If the error message above doesn't explain what went wrong, please try again later.</p>
+
+    <h2>Full Stack Trace:</h2>
+    <pre th:text="${exception}">Exception Details</pre>
+</div>
+</body>
+</html>

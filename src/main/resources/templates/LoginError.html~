@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Error</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/CSS/LoginErrorStyle.css">
+</head>
+<body>
+
+<div class="error-container">
+    <h2>Login Failed</h2>
+    <!-- Display the error message here -->
+    <p th:text="${error}">Invalid email or password. Please try again.</p>
+
+    <!-- Redirect button to homepage -->
+    <a href="/" class="btn btn-primary btn-home">Go to Homepage</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Enrolled Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Enrolled Students for [[${course.courseName}]]</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Student Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enrollment : ${enrollments}">
+            <td th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></td>
+            <td th:text="${enrollment.student.email}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

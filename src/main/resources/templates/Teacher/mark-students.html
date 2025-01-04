@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Students</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .button-container {
+            margin-top: 30px;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            text-align: center;
+        }
+
+        .form-container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Mark Students for Course: <span th:text="${course.courseName}"></span></h2>
+
+<!-- Display success or error messages -->
+<div th:if="${success}" class="alert alert-success" role="alert">
+    <p th:text="${success}"></p>
+</div>
+<div th:if="${error}" class="alert alert-danger" role="alert">
+    <p th:text="${error}"></p>
+</div>
+
+<!-- Form to mark students -->
+<form action="/teacher/mark-students" method="post" class="form-container">
+    <!-- Hidden field for courseId -->
+    <input type="hidden" name="courseId" th:value="${courseId}" />
+
+    <!-- Table displaying student names and marks input fields -->
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Student Name</th>
+            <th>Marks (0-100)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="enrollment : ${enrollments}">
+            <tr>
+                <td th:text="${enrollment.student.firstName + ' ' + enrollment.student.lastName}"></td>
+                <td>
+                    <!-- Marks input field with validation -->
+                    <input type="number" name="marks" min="0" max="100" required />
+                    <!-- Hidden input for enrollment ID -->
+                    <input type="hidden" name="enrollmentIds" th:value="${enrollment.id}" />
+                </td>
+            </tr>
+        </th:block>
+        </tbody>
+    </table>
+
+    <br>
+    <button type="submit" class="btn btn-primary btn-lg">Save Marks</button>
+</form>
+
+<!-- Back to class students button -->
+<div class="button-container">
+    <form action="/teacher/class-students" method="get">
+        <input type="hidden" name="courseId" th:value="${courseId}" />
+        <button type="submit" class="btn btn-secondary btn-lg">Back to Class Students</button>
+    </form>
+</div>
+
+<!-- Optionally, you can add the following for scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
